@@ -1,0 +1,8 @@
+.nav-block {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav-block button:first-child {
+    margin-right: 20px;
+}

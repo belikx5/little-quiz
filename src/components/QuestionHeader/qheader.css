@@ -1,0 +1,12 @@
+.q-header-block {
+    width: auto;
+    text-align: center;
+    padding: 5px;
+}
+.q-header-block .q-header-block_h3 {
+    font-size: 16px;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 1.2;
+
+}
