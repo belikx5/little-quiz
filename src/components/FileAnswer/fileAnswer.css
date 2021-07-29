@@ -1,0 +1,12 @@
+.file-input {
+    opacity: 0;
+}
+.file-input-block{
+    width: 80%;
+    margin: 0 auto;
+   position: relative;
+   bottom: 20px;
+    cursor: pointer;
+    padding: 6px 12px;
+    border: 1px solid rgba(0, 0, 0, 0.23);
+}

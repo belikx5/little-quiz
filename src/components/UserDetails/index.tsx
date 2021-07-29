@@ -7,7 +7,6 @@ import FormControl from '@material-ui/core/FormControl';
 import QuestionHeader from '../QuestionHeader';
 import NavButtons from '../NavButtons';
 import Card from '@material-ui/core/Card';
-import OtherInput from '../OtherInput';
 import TextField from '@material-ui/core/TextField';
 
 
