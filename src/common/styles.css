@@ -7,3 +7,12 @@
     padding: 12px;
     margin-top: 25vh;
 }
+.question-card label span {
+    text-align: left;
+}
+@media only screen and (max-width: 630px) {
+    .question-card {
+        width: calc(98vw - 30px);
+        margin-top: 15vh;
+    }
+}

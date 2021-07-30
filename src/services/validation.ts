@@ -1,5 +1,12 @@
 
+// export const validateFiles = (files: any[]) => {
+//     const resArr = files.map(checkFile);
+
+    
+// }
+
 export const validateFile = (file: any) => {
+
     if (file) {
         const availableFileExt = ["doc", "pdf", "docx", "odt", "xls", "xlsx", "ods", "txt", "jpg", "png", "jpeg"];
         const fileExtension = file && file.name?.split(".").pop();

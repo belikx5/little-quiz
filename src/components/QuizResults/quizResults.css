@@ -1,0 +1,10 @@
+.question-card.results {
+    text-align: left;
+}
+.question-card.results h4 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+.question-card.results p {
+    margin-bottom: 15px;
+}

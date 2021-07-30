@@ -1,0 +1,10 @@
+.user-data-card {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 75px 10px 35px;
+}
+@media only screen and (max-width: 630px) {
+    .user-data-card {
+        padding: 5px 15px 10px 15px;
+    }
+}

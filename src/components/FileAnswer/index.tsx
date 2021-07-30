@@ -1,45 +1,75 @@
-import "./fileAnswer.css"
-import React from 'react'
-import Button from '@material-ui/core/Button';
+import "./fileAnswer.css";
+import React from "react";
+import Button from "@material-ui/core/Button";
 import { Card } from "@material-ui/core";
 import QuestionHeader from "../QuestionHeader";
 import NavButtons from "../NavButtons";
+import { validateFile } from "../../services/validation";
+
+import { Context } from "../../store-ctx";
 
 type FileAnswerProps = {
-    title: string
-}
+  title: string;
+};
 
 function FileAnswer({ title }: FileAnswerProps) {
-    const [files, setFiles] = React.useState<File[] | null>();
+  const [files, setFiles] = React.useState<File[]>([]);
+  const { nav, data } = React.useContext(Context);
+  const [quizNavigation, changeQuizNavigation] = nav;
+  const [quizAnswers, changeQuizAnswers] = data;
+  const onCertificateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files?.length) {
+      const fileArray = Array.from(files);
+      const res = fileArray.map(validateFile);
+      if (res.some((el) => el === false))
+        alert(
+          "Available file formats: .doc, .pdf, .docx, .odt, .xls, .xlsx, .ods, .txt, .jpg, .png, .jpeg"
+        );
+      else setFiles(fileArray);
+    }
+  };
+  const handleNextClick = () => {
+    saveProgress();
+    changeQuizNavigation(quizNavigation + 1);
+  };
+  const handleBackClick = () => {
+    changeQuizNavigation(quizNavigation - 1);
+  };
+  const saveProgress = () => {
+    if (files.length) changeQuizAnswers(quizNavigation, files.map(f => f.name));
+  }
 
-    const onCertificateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const files = event.target.files;
-        if(files?.length) {
-            setFiles(Array.from(files));
-        }
-      };
-
-    return (
-        <Card className="question-card">
-            <QuestionHeader title={title} />
-            <input
-            className='file-input'
-            id="file-input"
-            type="file"
-            accept=".doc, .pdf, .docx, .odt, .xls, .xlsx, .ods, .txt, .jpg, .png, .jpeg"
-            multiple
-            onChange={onCertificateChange}
-        />
-        <label htmlFor="file-input" className='file-input-lable'>
-          <div className='file-input-block'>
-          {files?.length  
-            ? files.map(f => <span>{f.name} </span>)
-            : <span>Death certificate <span>*</span></span>}
-          </div>
-        </label>
-        <NavButtons isLastStep={true} nextDisabled={false} onNext={() => {}} onBack={() => {}} />
-        </Card>
-    )
+  return (
+    <Card className="question-card">
+      <QuestionHeader title={title} />
+      <input
+        className="file-input"
+        id="file-input"
+        type="file"
+        accept=".doc, .pdf, .docx, .odt, .xls, .xlsx, .ods, .txt, .jpg, .png, .jpeg"
+        multiple
+        onChange={onCertificateChange}
+      />
+      <label htmlFor="file-input" className="file-input-lable">
+        <div className="file-input-block">
+          {files?.length ? (
+            files.map((f) => <span key={f.name}>{f.name} </span>)
+          ) : (
+            <span>
+              Please, add a file
+            </span>
+          )}
+        </div>
+      </label>
+      <NavButtons
+        isLastStep={true}
+        nextDisabled={!files?.length}
+        onNext={handleNextClick}
+        onBack={handleBackClick}
+      />
+    </Card>
+  );
 }
 
-export default FileAnswer
+export default FileAnswer;
