@@ -13,10 +13,11 @@ type FileAnswerProps = {
 };
 
 function FileAnswer({ title }: FileAnswerProps) {
-  const [files, setFiles] = React.useState<File[]>([]);
   const { nav, data } = React.useContext(Context);
   const [quizNavigation, changeQuizNavigation] = nav;
   const [quizAnswers, changeQuizAnswers] = data;
+  const [files, setFiles] = React.useState<string[]>(quizAnswers[3] || []);
+  console.log(quizAnswers)
   const onCertificateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files?.length) {
@@ -26,7 +27,7 @@ function FileAnswer({ title }: FileAnswerProps) {
         alert(
           "Available file formats: .doc, .pdf, .docx, .odt, .xls, .xlsx, .ods, .txt, .jpg, .png, .jpeg"
         );
-      else setFiles(fileArray);
+      else setFiles(fileArray.map(f => f.name));
     }
   };
   const handleNextClick = () => {
@@ -34,10 +35,11 @@ function FileAnswer({ title }: FileAnswerProps) {
     changeQuizNavigation(quizNavigation + 1);
   };
   const handleBackClick = () => {
+    saveProgress();
     changeQuizNavigation(quizNavigation - 1);
   };
   const saveProgress = () => {
-    if (files.length) changeQuizAnswers(quizNavigation, files.map(f => f.name));
+    if (files.length) changeQuizAnswers(quizNavigation, files);
   }
 
   return (
@@ -54,7 +56,7 @@ function FileAnswer({ title }: FileAnswerProps) {
       <label htmlFor="file-input" className="file-input-lable">
         <div className="file-input-block">
           {files?.length ? (
-            files.map((f) => <span key={f.name}>{f.name} </span>)
+            files.map((f, i) => <span key={i}>{f} </span>)
           ) : (
             <span>
               Please, add a file
