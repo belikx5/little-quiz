@@ -1,10 +1,3 @@
-
-// export const validateFiles = (files: any[]) => {
-//     const resArr = files.map(checkFile);
-
-    
-// }
-
 export const validateFile = (file: any) => {
 
     if (file) {
@@ -13,4 +6,3 @@ export const validateFile = (file: any) => {
         return availableFileExt.includes(fileExtension);
     } else return false;
 }
-
